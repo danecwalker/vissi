@@ -1,0 +1,11 @@
+{
+  "name": "vissi-repo",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "turbo build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
