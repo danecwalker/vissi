@@ -18,4 +18,6 @@ test("scale d", () => {
   expect(s2(0)).toBe(100);
   expect(s2(5)).toBe(50);
   expect(s2(10)).toBe(0);
+
+  const s3 = scale([0, 10], [0, 100]);
 });

@@ -1,4 +1,6 @@
-export type Data = {
+export type Data = Point[];
+
+export type Point = {
   x: number;
-  y: number | number[];
-}[];
+  y: number;
+};

@@ -16,12 +16,13 @@
 
 <script lang="ts">
 	import { derived, writable, type Readable, type Writable } from 'svelte/store';
-	import { scale } from 'vissi';
+	import { scale, style } from 'vissi';
 
 	export let x1 = 0;
 	export let x2 = 0;
 	export let y1 = 1;
 	export let y2 = 1;
+	export let clip = false;
 
 	const _x1: Writable<number> = writable();
 	const _x2: Writable<number> = writable();
@@ -42,7 +43,14 @@
 	setContext(key, { width, height, x1: _x1, x2: _x2, y1: _y1, y2: _y2, x_scale, y_scale });
 </script>
 
-<div class="v-chart" bind:clientWidth={$width} bind:clientHeight={$height}>
+<div
+	class="v-chart"
+	bind:clientWidth={$width}
+	bind:clientHeight={$height}
+	style={style({
+		overflow: clip ? 'hidden' : 'visible'
+	})}
+>
 	<slot />
 </div>
 
