@@ -1,13 +1,14 @@
 <script lang="ts">
 	import { Box, Chart, Svg, Scatter, Bars } from '$lib/index.js';
-	import { domain, type Data, style } from 'vissi';
+	import { domain, type Data, style, range } from 'vissi';
 	import Ticks from '$lib/components/Ticks.svelte';
 
 	export let data: Data;
 	export let gridColor = '#ccc';
 	export let axisColor = 'black';
 	export let tickColor = '#999';
-	export let barColor = 'hsla(180, 100%, 50%, 0.8)';
+	export let barColor = 'hsla(210, 100%, 50%, 0.2)';
+	export let barBorder = 'hsla(210, 100%, 50%, 1)';
 	export let barSize = 1;
 	export let gap = 0;
 	export let width: number | string = '100%';
@@ -31,7 +32,7 @@
 >
 	<div>
 		<Chart x1={x1 - barSize / 2} x2={x2 + barSize / 2} {y1} {y2}>
-			<Ticks ticks={data.map((p) => p.x)} let:value>
+			<Ticks ticks={range(10)} let:value>
 				<span
 					class="x label"
 					style={style({
@@ -42,10 +43,11 @@
 
 			<Bars {data} color={barColor} width={barSize}>
 				<div
-					class="bar"
+					class={barBorder ? 'bar border' : 'bar'}
 					style={style({
 						backgroundColor: barColor,
-						width: `${100 - (gap / barSize) * 100}%`
+						width: `${100 - (gap / barSize) * 100}%`,
+						"--border-color": barBorder,
 					})}
 				></div>
 			</Bars>
@@ -72,7 +74,7 @@
 					<span
 						style={style({
 							color: tickColor
-						})}>{value}</span
+						})}>{Math.round(value*10)/10}</span
 					>
 				</div>
 			</Ticks>
@@ -114,6 +116,18 @@
 		height: 100%;
 		left: 50%;
 		transform: translateX(-50%);
+	}
+
+	.bar.border::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: calc(100% - 2px);
+		height: calc(100% - 1px);
+		border-top: 1px solid var(--border-color);
+		border-left: 1px solid var(--border-color);
+		border-right: 1px solid var(--border-color);
 	}
 
 	.axes {

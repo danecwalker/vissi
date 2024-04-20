@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Box, Chart, Svg, Scatter } from '$lib/index.js';
+	import { Box, Chart, Svg, Line } from '$lib/index.js';
 	import { domain, type Data, style } from 'vissi';
 	import Ticks from '$lib/components/Ticks.svelte';
 
@@ -7,8 +7,8 @@
 	export let gridColor = '#ccc';
 	export let axisColor = 'black';
 	export let tickColor = '#999';
-	export let scatterColor = 'red';
-	export let scatterSize = 6;
+	export let lineColor = 'red';
+	export let lineSize = 2;
 	export let width: number | string = '100%';
 	export let height: number | string = '100%';
 	export let maxWidth: number | string = '100%';
@@ -69,7 +69,7 @@
 		</Ticks>
 
 		<Svg>
-			<Scatter {data} color={scatterColor} size={scatterSize} />
+			<Line {data} color={lineColor} size={lineSize} />
 		</Svg>
 	</Chart>
 </div>
